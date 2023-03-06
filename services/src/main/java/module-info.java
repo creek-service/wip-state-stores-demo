@@ -7,5 +7,7 @@ module connected.services.demo.services {
     exports io.github.creek.service.connected.services.demo.services;
 
     provides ComponentDescriptor with
+            io.github.creek.service.connected.services.demo.services
+                    .HandleScoreboardServiceDescriptor,
             HandleOccurrenceServiceDescriptor;
 }
