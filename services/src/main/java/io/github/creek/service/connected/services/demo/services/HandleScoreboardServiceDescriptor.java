@@ -16,9 +16,17 @@
 
 package io.github.creek.service.connected.services.demo.services;
 
+import static io.github.creek.service.connected.services.demo.internal.TopicConfigBuilder.withPartitions;
+import static io.github.creek.service.connected.services.demo.internal.TopicDescriptors.internalTopic;
+import static io.github.creek.service.connected.services.demo.internal.TopicDescriptors.outputTopic;
+
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.creekservice.api.kafka.metadata.KafkaTopicInput;
+import org.creekservice.api.kafka.metadata.KafkaTopicInternal;
+import org.creekservice.api.kafka.metadata.OwnedKafkaTopicOutput;
 import org.creekservice.api.platform.metadata.ComponentInput;
 import org.creekservice.api.platform.metadata.ComponentInternal;
 import org.creekservice.api.platform.metadata.ComponentOutput;
@@ -29,6 +37,37 @@ public final class HandleScoreboardServiceDescriptor implements ServiceDescripto
     private static final List<ComponentInput> INPUTS = new ArrayList<>();
     private static final List<ComponentInternal> INTERNALS = new ArrayList<>();
     private static final List<ComponentOutput> OUTPUTS = new ArrayList<>();
+
+    // formatting:off
+// begin-snippet: topic-resources
+    // Hookup the handle-occurrence-service's output as this services, unowned, input:
+    public static final KafkaTopicInput<String, Integer> TweetHandleUsageStream =
+            register(HandleOccurrenceServiceDescriptor.TweetHandleUsageStream.toInput());
+
+    public static final KafkaTopicInternal<String, Integer> TweetHandleLeaderBoardChangeLog =
+            register(internalTopic(
+                    "someting",  // Todo: fix this
+                    String.class, // (Twitter handle)
+                    Integer.class // (Summed usage count)
+            ));
+
+    // Define the output topic, conceptually owned by this service:
+    public static final OwnedKafkaTopicOutput<String, Integer> TweetHandleLeaderBoardTable =
+            register(outputTopic(
+                    "twitter.handle.leaderboard",
+                    String.class, // (Twitter handle)
+                    Integer.class,  // (Summed usage count)
+                    withPartitions(6)
+                            // Todo: document:
+                            .withRetentionTime(Duration.ofDays(1))));
+// end-snippet
+    // formatting:on
+
+    // Todo: call out design issue with 6 partitions
+    // Todo: call out same design issue with basic kafa streas demo
+    // Todo: Test if system tests can access internal changelog topic without it being listed here.
+    // Todo: Do we want to list the internal changelog topic here?
+    // Todo: Windowing...
 
     public HandleScoreboardServiceDescriptor() {}
 
@@ -57,11 +96,11 @@ public final class HandleScoreboardServiceDescriptor implements ServiceDescripto
         return input;
     }
 
-    // Uncomment if needed:
-    // private static <T extends ComponentInternal> T register(final T internal) {
-    //     INTERNALS.add(internal);
-    //     return internal;
-    // }
+    // Todo: document uncommenting this
+    private static <T extends ComponentInternal> T register(final T internal) {
+        INTERNALS.add(internal);
+        return internal;
+    }
 
     private static <T extends ComponentOutput> T register(final T output) {
         OUTPUTS.add(output);

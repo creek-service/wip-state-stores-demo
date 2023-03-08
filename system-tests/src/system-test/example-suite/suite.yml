@@ -3,6 +3,7 @@
 name: basic suite
 services:
   - handle-occurrence-service
+  - handle-scoreboard-service
 tests:
   - name: test 1
     inputs:
