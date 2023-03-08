@@ -3,13 +3,10 @@
 [![build](https://github.com/creek-service/connected-services-demo/actions/workflows/build.yml/badge.svg)](https://github.com/creek-service/connected-services-demo/actions/workflows/build.yml)
 [![CodeQL](https://github.com/creek-service/connected-services-demo/actions/workflows/codeql.yml/badge.svg)](https://github.com/creek-service/connected-services-demo/actions/workflows/codeql.yml)
 
-# Basic Kafka Streams Demo
+# Connected Services Demo
 
-Repo containing the completed [Basic Kafka Streams demo](https://www.creekservice.org/connected-services-demo)
+Repo containing the completed [Connected Services demo](https://www.creekservice.org/connected-services-demo)
 and associated [docs](docs/README.md).
-
-This repository is also a template repository to enable later tutorials, that build on this one. 
-Click the [Use this template](https://github.com/creek-service/connected-services-demo/generate) button at the top to create a new repository from this template.
 
 ### Gradle commands
 
