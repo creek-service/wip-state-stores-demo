@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.2.0
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@17573ee1cc1b9d061760f3a006fc4aac4f944fd5 # v2.2.4
+        uses: github/codeql-action/init@f3feb00acb00f31a6f60280e6ace9ca31d91c76a # v2.3.2
         with:
           languages: ${{ matrix.language }}
 
@@ -41,4 +41,4 @@ jobs:
         run: ./gradlew test
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@17573ee1cc1b9d061760f3a006fc4aac4f944fd5 # v2.2.4
+        uses: github/codeql-action/analyze@f3feb00acb00f31a6f60280e6ace9ca31d91c76a # v2.3.2
