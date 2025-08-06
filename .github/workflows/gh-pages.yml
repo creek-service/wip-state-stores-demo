@@ -11,20 +11,20 @@ on:
 permissions:
   contents: read
 
-# Allow one concurrent deployment
+# Allow one concurrent build/deployment, per branch
 concurrency:
-  group: "${{ github.repository }}-pages"
-  cancel-in-progress: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
 
 jobs:
   build_pages:
-    if: ${{ github.run_number != 1 }}
+    if: ${{ github.repository_owner == 'creek-service' }}
     runs-on: ubuntu-latest
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/docs/Gemfile
     steps:
       - name: Checkout
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.2.0
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v3.4.0
         with:
           fetch-depth: 0 # need full history to get page last modified times
       - name: Setup Ruby
@@ -35,7 +35,7 @@ jobs:
           cache-version: 0 # Increment this number if you need to re-download cached gems
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@37538b280cbfab35da9dcd936a2b95f1f522d927 # v3.0.2
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
       - name: Build with Jekyll
         # Outputs to the './docs/_site' directory by default
         run: (cd docs && bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}")
@@ -44,7 +44,7 @@ jobs:
       - name: Upload artifact
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         # Automatically uploads an artifact from the './_site' directory by default
-        uses: actions/upload-pages-artifact@253fd476ed429e83b7aae64a92a75b4ceb1a17cf # v1.0.7
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
           path: "docs/_site/"
 
@@ -65,6 +65,6 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@0243b6c10d06cb8e95ed8ee471231877621202c0 # v1.2.4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
       - name: Ping Google Search
         run: curl "https://www.google.com/ping?sitemap=https://www.creekservice.org/${{ github.event.repository.name }}/sitemap.xml"
