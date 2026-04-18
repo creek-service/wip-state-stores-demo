@@ -69,6 +69,7 @@ public final class TopologyBuilder {
 
         return builder.build(ext.properties(DEFAULT_CLUSTER_NAME));
     }
+
     // end-snippet
 
     // begin-snippet: extract-method
