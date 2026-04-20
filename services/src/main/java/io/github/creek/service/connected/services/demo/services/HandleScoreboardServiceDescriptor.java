@@ -34,7 +34,7 @@ public final class HandleScoreboardServiceDescriptor implements ServiceDescripto
 
     @Override
     public String dockerImage() {
-        return "ghcr.io/creek-service/connected-services-demo-handle-scoreboard-service";
+        return "ghcr.io/creek-service/wip-state-stores-demo-handle-scoreboard-service";
     }
 
     @Override

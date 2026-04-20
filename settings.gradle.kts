@@ -1,4 +1,4 @@
-rootProject.name = "connected-services-demo"
+rootProject.name = "wip-state-stores-demo"
 
 include(
     "handle-scoreboard-service",
