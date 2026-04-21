@@ -1,5 +1,5 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Coverage Status](https://coveralls.io/repos/github/creek-service/connected-services-demo/badge.svg?branch=main)](https://coveralls.io/github/creek-service/connected-services-demo?branch=main)
+[![codecov](https://codecov.io/gh/creek-service/wip-state-stores-demo/branch/main/graph/badge.svg)](https://codecov.io/gh/creek-service/wip-state-stores-demo)
 [![build](https://github.com/creek-service/connected-services-demo/actions/workflows/build.yml/badge.svg)](https://github.com/creek-service/connected-services-demo/actions/workflows/build.yml)
 [![CodeQL](https://github.com/creek-service/connected-services-demo/actions/workflows/codeql.yml/badge.svg)](https://github.com/creek-service/connected-services-demo/actions/workflows/codeql.yml)
 
@@ -19,7 +19,7 @@ This demo is not complete yet!
 * `./gradlew format` will format the code using [Spotless][spotless].
 * `./gradlew static` will run static code analysis, i.e. [Spotbugs][spotbugs] and [Checkstyle][checkstyle].
 * `./gradlew check` will run all checks and tests.
-* `./gradlew coverage` will generate a cross-module [Jacoco][jacoco] coverage report.
+* `./gradlew jacocoTestReport` will generate [Jacoco][jacoco] coverage reports for each module.
 
 [spotless]: https://github.com/diffplug/spotless
 [spotbugs]: https://spotbugs.github.io/
