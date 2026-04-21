@@ -67,7 +67,7 @@ public final class HandleOccurrenceServiceDescriptor implements ServiceDescripto
 
     @Override
     public String dockerImage() {
-        return "ghcr.io/creek-service/connected-services-demo-handle-occurrence-service";
+        return "ghcr.io/creek-service/wip-state-stores-demo-handle-occurrence-service";
     }
 
     @Override
