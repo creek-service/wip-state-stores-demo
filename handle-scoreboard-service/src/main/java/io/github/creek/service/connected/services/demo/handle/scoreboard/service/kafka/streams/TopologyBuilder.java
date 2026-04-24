@@ -17,7 +17,7 @@
 package io.github.creek.service.connected.services.demo.handle.scoreboard.service.kafka.streams;
 
 import static java.util.Objects.requireNonNull;
-import static org.creekservice.api.kafka.metadata.KafkaTopicDescriptor.DEFAULT_CLUSTER_NAME;
+import static org.creekservice.api.kafka.metadata.topic.KafkaTopicDescriptor.DEFAULT_CLUSTER_NAME;
 
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.Topology;
