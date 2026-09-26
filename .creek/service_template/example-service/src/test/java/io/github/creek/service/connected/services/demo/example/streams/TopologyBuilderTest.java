@@ -31,7 +31,7 @@ import org.apache.kafka.streams.TestOutputTopic;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.TopologyTestDriver;
 import org.creekservice.api.kafka.streams.extension.KafkaStreamsExtension;
-import org.creekservice.api.kafka.streams.test.TestKafkaStreamsExtensionOptions;
+import org.creekservice.api.kafka.streams.extension.KafkaStreamsExtensionOptions;
 import org.creekservice.api.service.context.CreekContext;
 import org.creekservice.api.service.context.CreekServices;
 import org.creekservice.api.test.util.TestPaths;
@@ -51,7 +51,7 @@ class TopologyBuilderTest {
     public static void classSetup() {
         ctx =
                 CreekServices.builder(new ExampleServiceDescriptor())
-                        .with(TestKafkaStreamsExtensionOptions.defaults())
+                        .with(KafkaStreamsExtensionOptions.testBuilder().build())
                         .build();
     }
 

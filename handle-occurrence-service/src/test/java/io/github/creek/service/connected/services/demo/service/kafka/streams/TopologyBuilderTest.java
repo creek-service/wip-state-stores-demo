@@ -17,11 +17,11 @@
 package io.github.creek.service.connected.services.demo.service.kafka.streams;
 
 // formatting:off
+import static io.github.creek.service.connected.services.demo.service.kafka.streams.TestTopics.inputTopic;
+import static io.github.creek.service.connected.services.demo.service.kafka.streams.TestTopics.outputTopic;
 import static io.github.creek.service.connected.services.demo.services.HandleOccurrenceServiceDescriptor.TweetTextTopic;
 import static io.github.creek.service.connected.services.demo.services.HandleOccurrenceServiceDescriptor.TweetHandleUsageTopic;
 import static org.creekservice.api.kafka.metadata.topic.KafkaTopicDescriptor.DEFAULT_CLUSTER_NAME;
-import static org.creekservice.api.kafka.streams.test.TestTopics.inputTopic;
-import static org.creekservice.api.kafka.streams.test.TestTopics.outputTopic;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 // begin-snippet: includes
@@ -31,11 +31,14 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import org.apache.kafka.streams.TestInputTopic;
 import org.apache.kafka.streams.TestOutputTopic;
 // end-snippet
+import io.github.creek.service.connected.services.demo.api.model.HandleUsage;
+import io.github.creek.service.connected.services.demo.api.model.TweetData;
 import io.github.creek.service.connected.services.demo.services.HandleOccurrenceServiceDescriptor;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.TopologyTestDriver;
+import org.creekservice.api.kafka.serde.json.JsonSerdeExtensionOptions;
 import org.creekservice.api.kafka.streams.extension.KafkaStreamsExtension;
-import org.creekservice.api.kafka.streams.test.TestKafkaStreamsExtensionOptions;
+import org.creekservice.api.kafka.streams.extension.KafkaStreamsExtensionOptions;
 import org.creekservice.api.service.context.CreekContext;
 import org.creekservice.api.service.context.CreekServices;
 import org.creekservice.api.test.util.TestPaths;
@@ -55,8 +58,8 @@ class TopologyBuilderTest {
     private Topology topology;
     // formatting:off
 // begin-snippet: topic-declarations
-    private TestInputTopic<Long, String> tweetTextTopic;
-    private TestOutputTopic<String, Integer> handleUsageTopic;
+    private TestInputTopic<Long, TweetData> tweetTextTopic;
+    private TestOutputTopic<String, HandleUsage> handleUsageTopic;
 // end-snippet
     // formatting:on
 
@@ -65,7 +68,12 @@ class TopologyBuilderTest {
         // Initialise Creek in 'test mode':
         ctx =
                 CreekServices.builder(new HandleOccurrenceServiceDescriptor())
-                        .with(TestKafkaStreamsExtensionOptions.defaults())
+                        // configure creek to work with mocks for Kafka Streams.
+                        .with(KafkaStreamsExtensionOptions.testBuilder().build())
+                        // Required when using JSON serialization for topic values/keys.
+                        // Registers JSON serializers/deserializers with the test framework, using
+                        // a mock Schema Registry client so no real Schema Registry is needed.
+                        .with(JsonSerdeExtensionOptions.testBuilder().build())
                         .build();
     }
 
@@ -82,8 +90,8 @@ class TopologyBuilderTest {
         testDriver = new TopologyTestDriver(topology, ext.properties(DEFAULT_CLUSTER_NAME));
 
         // Create the topologies input and output topics"
-        tweetTextTopic = inputTopic(TweetTextTopic, ctx, testDriver);
-        handleUsageTopic = outputTopic(TweetHandleUsageTopic, ctx, testDriver);
+        tweetTextTopic = inputTopic(TweetTextTopic, ext, testDriver);
+        handleUsageTopic = outputTopic(TweetHandleUsageTopic, ext, testDriver);
     }
 // end-snippet
     // formatting:on
@@ -98,13 +106,15 @@ class TopologyBuilderTest {
     @Test
     void shouldOutputHandleOccurrences() {
         // When:
-        tweetTextTopic.pipeInput(1622262145390972929L, "@PepitoTheCat @BillyM2k @PepitoTheCat Responding to feedback, " +
-                "Twitter will enable a light, write-only API for bots providing good content that is free.");
+        tweetTextTopic.pipeInput(1622262145390972929L,
+                new TweetData(1622262145390972929L,
+                        "@PepitoTheCat @BillyM2k @PepitoTheCat Responding to feedback, " +
+                        "Twitter will enable a light, write-only API for bots providing good content that is free."));
 
         // Then:
         assertThat(handleUsageTopic.readKeyValuesToList(), containsInAnyOrder(
-                pair("@PepitoTheCat", 2),
-                pair("@BillyM2k", 1)
+                pair("@PepitoTheCat", new HandleUsage("@PepitoTheCat", 2)),
+                pair("@BillyM2k", new HandleUsage("@BillyM2k", 1))
         ));
     }
 // end-snippet

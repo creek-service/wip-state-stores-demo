@@ -16,7 +16,10 @@ to build a leaderboard of the most mentioned Twitter handles.
 ## Features covered
 
 By the end of this tutorial you should know:
-  todo
+  * How to use schema-validated JSON payloads for topic values, with the JSON schema generated
+    automatically from your Java model types.
+
+_(This tutorial is still a work in progress; more content will be added over time.)_
 
 ## Prerequisites
 

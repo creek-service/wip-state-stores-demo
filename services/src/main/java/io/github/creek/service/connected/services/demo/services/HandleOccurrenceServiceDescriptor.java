@@ -19,9 +19,11 @@ package io.github.creek.service.connected.services.demo.services;
 // formatting:off
 // begin-snippet: includes-1
 import static io.github.creek.service.connected.services.demo.internal.TopicConfigBuilder.withPartitions;
-import static io.github.creek.service.connected.services.demo.internal.TopicDescriptors.inputTopic;
-import static io.github.creek.service.connected.services.demo.internal.TopicDescriptors.outputTopic;
+import static io.github.creek.service.connected.services.demo.internal.TopicDescriptors.inputTopicWithJsonValue;
+import static io.github.creek.service.connected.services.demo.internal.TopicDescriptors.outputTopicWithJsonValue;
 // end-snippet
+import io.github.creek.service.connected.services.demo.api.model.HandleUsage;
+import io.github.creek.service.connected.services.demo.api.model.TweetData;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -45,20 +47,20 @@ public final class HandleOccurrenceServiceDescriptor implements ServiceDescripto
     // formatting:off
 // begin-snippet: topic-resources
     // Define the tweet-text input topic, conceptually owned by this service:
-    public static final OwnedKafkaTopicInput<Long, String> TweetTextTopic =
+    public static final OwnedKafkaTopicInput<Long, TweetData> TweetTextTopic =
             register(
-                    inputTopic(
+                    inputTopicWithJsonValue(
                             "twitter.tweet.text", // Topic name
-                            Long.class, // Topic key type (Tweet id)
-                            String.class, // Topic value type (Tweet text)
+                            Long.class, // Topic key type (Tweet id, Kafka native)
+                            TweetData.class, // Topic value type (Tweet data, JSON)
                             withPartitions(5))); // Topic config
 
     // Define the output topic, again conceptually owned by this service:
-    public static final OwnedKafkaTopicOutput<String, Integer> TweetHandleUsageTopic =
-            register(outputTopic(
+    public static final OwnedKafkaTopicOutput<String, HandleUsage> TweetHandleUsageTopic =
+            register(outputTopicWithJsonValue(
                     "twitter.handle.usage",
-                    String.class, // (Twitter handle)
-                    Integer.class,  // (Usage count)
+                    String.class, // (Twitter handle, Kafka native)
+                    HandleUsage.class,  // (Usage data, JSON)
                     withPartitions(6)));
 // end-snippet
     // formatting:on
