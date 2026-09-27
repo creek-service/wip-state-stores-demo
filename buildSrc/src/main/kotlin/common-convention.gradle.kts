@@ -61,10 +61,6 @@ repositories {
     maven {
         url = uri("https://packages.confluent.io/maven/")
     }
-    // Required for the everit-json-schema dependency (transitive from Confluent's JSON schema provider).
-    maven {
-        url = uri("https://jitpack.io")
-    }
 }
 
 dependencies {
