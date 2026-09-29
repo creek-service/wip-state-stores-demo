@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package io.github.creek.service.connected.services.demo.service.kafka.streams;
+package io.github.creek.service.connected.services.demo.handle.occurrence.service.kafka.streams;
 
 // formatting:off
-import static io.github.creek.service.connected.services.demo.service.kafka.streams.TestTopics.inputTopic;
-import static io.github.creek.service.connected.services.demo.service.kafka.streams.TestTopics.outputTopic;
+import static io.github.creek.service.connected.services.demo.handle.occurrence.service.kafka.streams.TestTopics.inputTopic;
+import static io.github.creek.service.connected.services.demo.handle.occurrence.service.kafka.streams.TestTopics.outputTopic;
 import static io.github.creek.service.connected.services.demo.services.HandleOccurrenceServiceDescriptor.TweetTextTopic;
 import static io.github.creek.service.connected.services.demo.services.HandleOccurrenceServiceDescriptor.TweetHandleUsageTopic;
 import static org.creekservice.api.kafka.metadata.topic.KafkaTopicDescriptor.DEFAULT_CLUSTER_NAME;

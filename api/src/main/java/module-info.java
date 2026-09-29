@@ -8,7 +8,7 @@ module connected.services.demo.api {
     exports io.github.creek.service.connected.services.demo.api.model;
     exports io.github.creek.service.connected.services.demo.internal to
             connected.services.demo.services,
-            connected.services.demo.service;
+            connected.services.demo.handle.occurrence.service;
 
     // Required so Jackson (used by the JSON serde) can reflectively access the record's canonical
     // constructor and component accessors at runtime.

@@ -14,20 +14,13 @@
  * limitations under the License.
  */
 
-package io.github.creek.service.connected.services.demo.example.streams;
+package io.github.creek.service.connected.services.demo.handle.scoreboard.service.kafka.streams;
 
-import static org.apache.kafka.streams.KeyValue.pair;
 import static org.creekservice.api.kafka.metadata.topic.KafkaTopicDescriptor.DEFAULT_CLUSTER_NAME;
-import static org.creekservice.api.kafka.streams.test.TestTopics.inputTopic;
-import static org.creekservice.api.kafka.streams.test.TestTopics.outputTopic;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
-import io.github.creek.service.connected.services.demo.example.service.kafka.streams.TopologyBuilder;
-import io.github.creek.service.connected.services.demo.services.ExampleServiceDescriptor;
-import org.apache.kafka.streams.TestInputTopic;
-import org.apache.kafka.streams.TestOutputTopic;
+import io.github.creek.service.connected.services.demo.services.HandleScoreboardServiceDescriptor;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.TopologyTestDriver;
 import org.creekservice.api.kafka.streams.extension.KafkaStreamsExtension;
@@ -50,7 +43,7 @@ class TopologyBuilderTest {
     @BeforeAll
     public static void classSetup() {
         ctx =
-                CreekServices.builder(new ExampleServiceDescriptor())
+                CreekServices.builder(new HandleScoreboardServiceDescriptor())
                         .with(KafkaStreamsExtensionOptions.testBuilder().build())
                         .build();
     }
@@ -67,7 +60,6 @@ class TopologyBuilderTest {
     public void tearDown() {
         testDriver.close();
     }
-
 
     /**
      * A test that intentionally fails when ever the topology changes.
@@ -90,7 +82,7 @@ class TopologyBuilderTest {
         // Given:
         final String expectedTopology =
                 TestPaths.readString(
-                        TestPaths.moduleRoot("example-service")
+                        TestPaths.moduleRoot("handle-scoreboard-service")
                                 .resolve("src/test/resources/kafka/streams/expected_topology.txt"));
 
         // When:
