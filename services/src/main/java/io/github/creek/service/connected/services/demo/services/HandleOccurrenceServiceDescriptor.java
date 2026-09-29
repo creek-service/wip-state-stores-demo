@@ -19,8 +19,8 @@ package io.github.creek.service.connected.services.demo.services;
 // formatting:off
 // begin-snippet: includes-1
 import static io.github.creek.service.connected.services.demo.internal.TopicConfigBuilder.withPartitions;
-import static io.github.creek.service.connected.services.demo.internal.TopicDescriptors.inputTopicWithJsonValue;
-import static io.github.creek.service.connected.services.demo.internal.TopicDescriptors.outputTopicWithJsonValue;
+import static io.github.creek.service.connected.services.demo.internal.TopicDescriptors.inputTopic;
+import static io.github.creek.service.connected.services.demo.internal.TopicDescriptors.outputTopic;
 // end-snippet
 import io.github.creek.service.connected.services.demo.api.model.HandleUsage;
 import io.github.creek.service.connected.services.demo.api.model.TweetData;
@@ -49,7 +49,7 @@ public final class HandleOccurrenceServiceDescriptor implements ServiceDescripto
     // Define the tweet-text input topic, conceptually owned by this service:
     public static final OwnedKafkaTopicInput<Long, TweetData> TweetTextTopic =
             register(
-                    inputTopicWithJsonValue(
+                    inputTopic(
                             "twitter.tweet.text", // Topic name
                             Long.class, // Topic key type (Tweet id, Kafka native)
                             TweetData.class, // Topic value type (Tweet data, JSON)
@@ -57,7 +57,7 @@ public final class HandleOccurrenceServiceDescriptor implements ServiceDescripto
 
     // Define the output topic, again conceptually owned by this service:
     public static final OwnedKafkaTopicOutput<String, HandleUsage> TweetHandleUsageTopic =
-            register(outputTopicWithJsonValue(
+            register(outputTopic(
                     "twitter.handle.usage",
                     String.class, // (Twitter handle, Kafka native)
                     HandleUsage.class,  // (Usage data, JSON)
