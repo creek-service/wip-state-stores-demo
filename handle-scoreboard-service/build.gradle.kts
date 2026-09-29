@@ -29,6 +29,7 @@ dependencies {
     implementation(project(":services"))
     implementation("org.creekservice:creek-service-context:$creekVersion")
     implementation("org.creekservice:creek-kafka-streams-extension:$creekVersion")
+    implementation("org.creekservice:creek-kafka-json-serde:$creekVersion")
     implementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
     runtimeOnly("org.apache.logging.log4j:log4j-slf4j2-impl:$log4jVersion")
 
@@ -39,8 +40,8 @@ dependencies {
 modularity.patchModule("kafka.streams", "kafka-streams-test-utils-${property("kafkaVersion")}.jar")
 
 application {
-    mainModule.set("connected.services.demo.handle.scoreboard.service")
-    mainClass.set("io.github.creek.service.connected.services.demo.handle.scoreboard.service.ServiceMain")
+    mainModule.set("wip.state.stores.demo.handle.scoreboard.service")
+    mainClass.set("io.github.creek.service.wip.state.stores.demo.handle.scoreboard.service.ServiceMain")
 }
 
 val buildAppImage = tasks.register<DockerBuildImage>("buildAppImage") {
@@ -68,4 +69,3 @@ tasks.register<DockerPushImage>("pushAppImage") {
     images.add("ghcr.io/creek-service/${rootProject.name}-${project.name}:latest")
     images.add("ghcr.io/creek-service/${rootProject.name}-${project.name}:${project.version}")
 }
-

@@ -14,5 +14,5 @@
 # limitations under the License.
 #
 
-io.github.creek.service.connected.services.demo.services.HandleOccurrenceServiceDescriptor
-io.github.creek.service.connected.services.demo.services.HandleScoreboardServiceDescriptor
+io.github.creek.service.wip.state.stores.demo.services.HandleOccurrenceServiceDescriptor
+io.github.creek.service.wip.state.stores.demo.services.HandleScoreboardServiceDescriptor

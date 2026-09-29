@@ -30,3 +30,17 @@ Wait for the workflow to complete and pull down the changes to your local machin
 ```shell
 git pull
 ```
+
+The basic demo's system test seeded two tweets before starting the service. Before running the
+test in this new repository, move those two `TweetData` records from
+`system-tests/src/system-test/example-suite/seed/twitter.tweet.text.yml` into the `records`
+list of `inputs/twitter.tweet.text.yml`, and remove the seed file. The combined input fixture
+now contains all five tweets; the expected output remains unchanged. Sending all five as
+regular test inputs ensures the output observer is running when the records are produced.
+
+{% highlight yaml %}
+{% include_snippet all from ../system-tests/src/system-test/example-suite/inputs/twitter.tweet.text.yml %}
+{% endhighlight %}
+
+The new `handle-scoreboard-service` module is still boilerplate: it has no state store or
+business logic yet. This WIP tutorial does not add it to the system-test suite.

@@ -20,4 +20,4 @@ exec java \
  -Xms64m -Xmx256m \
  -Dlog4j.configurationFile=/log/log4j2.xml \
  --module-path "/opt/creek/service/lib" \
- --module connected.services.demo.example.service/io.github.creek.service.connected.services.demo.example.service.ServiceMain
+ --module wip.state.stores.demo.example.service/io.github.creek.service.wip.state.stores.demo.example.service.ServiceMain
