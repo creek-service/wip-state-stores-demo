@@ -1,6 +1,7 @@
 module connected.services.demo.api {
     requires transitive creek.kafka.metadata;
     requires com.fasterxml.jackson.annotation;
+    requires static io.swagger.v3.oas.annotations;
     requires creek.base.annotation;
 
     exports io.github.creek.service.connected.services.demo.api;
