@@ -31,12 +31,10 @@ Wait for the workflow to complete and pull down the changes to your local machin
 git pull
 ```
 
-The basic demo's system test seeded two tweets before starting the service. Before running the
-test in this new repository, move those two `TweetData` records from
-`system-tests/src/system-test/example-suite/seed/twitter.tweet.text.yml` into the `records`
-list of `inputs/twitter.tweet.text.yml`, and remove the seed file. The combined input fixture
-now contains all five tweets; the expected output remains unchanged. Sending all five as
-regular test inputs ensures the output observer is running when the records are produced.
+The basic demo's system test seeds two tweets — via
+`system-tests/src/system-test/example-suite/seed/twitter.tweet.text.yml` — before starting the
+service. Leave that seed fixture as-is in this new repository; the remaining three tweets are
+sent as regular test inputs, which ensures the output observer is running when they're produced:
 
 {% highlight yaml %}
 {% include_snippet all from ../system-tests/src/system-test/example-suite/inputs/twitter.tweet.text.yml %}
