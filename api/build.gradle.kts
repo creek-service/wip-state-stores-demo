@@ -5,7 +5,7 @@ plugins {
 
 dependencies {
     api("org.creekservice:creek-kafka-metadata:${property("creekVersion")}")
-    api("com.fasterxml.jackson.core:jackson-annotations:${property("jacksonVersion")}")
+    api("com.fasterxml.jackson.core:jackson-annotations:${property("jacksonAnnotationsVersion")}")
     compileOnlyApi("io.swagger.core.v3:swagger-annotations:${property("swaggerAnnotationsVersion")}")
     implementation("org.creekservice:creek-base-annotation:${property("creekVersion")}")
 
