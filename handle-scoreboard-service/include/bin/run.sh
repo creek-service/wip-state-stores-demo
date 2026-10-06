@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Copyright 2022-2023 Creek Contributors (https://github.com/creek-service)
+# Copyright 2022-2026 Creek Contributors (https://github.com/creek-service)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,4 +20,4 @@ exec java \
  -Xms64m -Xmx256m \
  -Dlog4j.configurationFile=/log/log4j2.xml \
  --module-path "/opt/creek/service/lib" \
- --module connected.services.demo.handle.scoreboard.service/io.github.creek.service.connected.services.demo.handle.scoreboard.service.ServiceMain
+ --module wip.state.stores.demo.handle.scoreboard.service/io.github.creek.service.wip.state.stores.demo.handle.scoreboard.service.ServiceMain

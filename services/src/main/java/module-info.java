@@ -1,13 +1,13 @@
-import io.github.creek.service.connected.services.demo.services.HandleOccurrenceServiceDescriptor;
+import io.github.creek.service.wip.state.stores.demo.services.HandleOccurrenceServiceDescriptor;
 import org.creekservice.api.platform.metadata.ComponentDescriptor;
 
-module connected.services.demo.services {
-    requires transitive connected.services.demo.api;
+module wip.state.stores.demo.services {
+    requires transitive wip.state.stores.demo.api;
 
-    exports io.github.creek.service.connected.services.demo.services;
+    exports io.github.creek.service.wip.state.stores.demo.services;
 
     provides ComponentDescriptor with
-            io.github.creek.service.connected.services.demo.services
+            io.github.creek.service.wip.state.stores.demo.services
                     .HandleScoreboardServiceDescriptor,
             HandleOccurrenceServiceDescriptor;
 }
