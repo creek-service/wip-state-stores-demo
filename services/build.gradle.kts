@@ -21,7 +21,7 @@ plugins {
 
 dependencies {
     api(project(":api"))
-    api("com.fasterxml.jackson.core:jackson-annotations:${property("jacksonVersion")}")
+    api("com.fasterxml.jackson.core:jackson-annotations:${property("jacksonAnnotationsVersion")}")
     implementation("org.creekservice:creek-base-annotation:${property("creekVersion")}")
     compileOnlyApi("io.swagger.core.v3:swagger-annotations:${property("swaggerAnnotationsVersion")}")
     jsonSchemaGenerator("org.creekservice:creek-json-schema-generator:${property("creekVersion")}")
