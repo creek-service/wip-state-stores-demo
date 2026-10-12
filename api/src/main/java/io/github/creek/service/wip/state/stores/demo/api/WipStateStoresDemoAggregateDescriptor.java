@@ -16,38 +16,9 @@
 
 package io.github.creek.service.wip.state.stores.demo.api;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import org.creekservice.api.platform.metadata.AggregateDescriptor;
-import org.creekservice.api.platform.metadata.ComponentInput;
-import org.creekservice.api.platform.metadata.ComponentOutput;
 
 public final class WipStateStoresDemoAggregateDescriptor implements AggregateDescriptor {
 
-    private static final List<ComponentInput> INPUTS = new ArrayList<>();
-    private static final List<ComponentOutput> OUTPUTS = new ArrayList<>();
-
     public WipStateStoresDemoAggregateDescriptor() {}
-
-    @Override
-    public Collection<ComponentInput> inputs() {
-        return List.copyOf(INPUTS);
-    }
-
-    @Override
-    public Collection<ComponentOutput> outputs() {
-        return List.copyOf(OUTPUTS);
-    }
-
-    // Uncomment if needed
-    // private static <T extends ComponentInput> T register(final T input) {
-    //     INPUTS.add(input);
-    //     return input;
-    // }
-
-    private static <T extends ComponentOutput> T register(final T output) {
-        OUTPUTS.add(output);
-        return output;
-    }
 }
