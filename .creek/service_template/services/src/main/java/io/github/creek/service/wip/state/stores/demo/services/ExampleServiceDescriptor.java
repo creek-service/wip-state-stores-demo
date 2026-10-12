@@ -40,7 +40,7 @@ public final class ExampleServiceDescriptor implements ServiceDescriptor {
 
     @Override
     public String dockerImage() {
-        return "ghcr.io/creek-service/connected-services-demo-example-service";
+        return "ghcr.io/creek-service/ks-state-stores-demo-example-service";
     }
 
     @Override

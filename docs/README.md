@@ -35,8 +35,8 @@ git push --set-upstream origin gems-update
 #### 3. Run the local server
 
 ```shell
-(cd docs && bundle exec jekyll serve --livereload --baseurl /connected-services-demo)
+(cd docs && bundle exec jekyll serve --livereload --baseurl /wip-state-stores-demo)
 ```
 
 This will launch a web server so that you can work on the site locally.
-Check it out on [http://localhost:4000/connected-services-demo](http://localhost:4000/connected-services-demo).
+Check it out on [http://localhost:4000/wip-state-stores-demo](http://localhost:4000/wip-state-stores-demo).

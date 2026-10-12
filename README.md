@@ -1,7 +1,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![codecov](https://codecov.io/gh/creek-service/wip-state-stores-demo/branch/main/graph/badge.svg)](https://codecov.io/gh/creek-service/wip-state-stores-demo)
-[![build](https://github.com/creek-service/connected-services-demo/actions/workflows/build.yml/badge.svg)](https://github.com/creek-service/connected-services-demo/actions/workflows/build.yml)
-[![CodeQL](https://github.com/creek-service/connected-services-demo/actions/workflows/codeql.yml/badge.svg)](https://github.com/creek-service/connected-services-demo/actions/workflows/codeql.yml)
+[![build](https://github.com/creek-service/wip-state-stores-demo/actions/workflows/build.yml/badge.svg)](https://github.com/creek-service/wip-state-stores-demo/actions/workflows/build.yml)
+[![CodeQL](https://github.com/creek-service/wip-state-stores-demo/actions/workflows/codeql.yml/badge.svg)](https://github.com/creek-service/wip-state-stores-demo/actions/workflows/codeql.yml)
 
 # Kafka Streams State Stores Demo
 
