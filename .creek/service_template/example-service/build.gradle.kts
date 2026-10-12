@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2025 Creek Contributors (https://github.com/creek-service)
+ * Copyright 2023-2026 Creek Contributors (https://github.com/creek-service)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,8 +40,8 @@ dependencies {
 modularity.patchModule("kafka.streams", "kafka-streams-test-utils-$kafkaVersion.jar")
 
 application {
-    mainModule.set("connected.services.demo.example.service")
-    mainClass.set("io.github.creek.service.connected.services.demo.example.service.ServiceMain")
+    mainModule.set("wip.state.stores.demo.example.service")
+    mainClass.set("io.github.creek.service.wip.state.stores.demo.example.service.ServiceMain")
 }
 
 val buildAppImage = tasks.register<DockerBuildImage>("buildAppImage") {

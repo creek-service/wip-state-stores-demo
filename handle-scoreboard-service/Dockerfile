@@ -3,7 +3,7 @@ ARG APP_NAME
 ARG APP_VERSION
 ENV VERSION=$APP_VERSION
 
-LABEL org.opencontainers.image.source=https://github.com/creek-service/connected-services-demo/tree/main/handle-scoreboard-service
+LABEL org.opencontainers.image.source=https://github.com/creek-service/wip-state-stores-demo/tree/main/handle-scoreboard-service
 
 
 RUN mkdir -p /opt/creek
