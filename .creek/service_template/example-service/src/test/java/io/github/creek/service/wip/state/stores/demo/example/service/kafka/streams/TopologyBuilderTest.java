@@ -16,10 +16,9 @@
 
 package io.github.creek.service.wip.state.stores.demo.example.service.kafka.streams;
 
-import static org.apache.kafka.streams.KeyValue.pair;
+import static io.github.creek.service.wip.state.stores.demo.example.service.kafka.streams.TestTopics.inputTopic;
+import static io.github.creek.service.wip.state.stores.demo.example.service.kafka.streams.TestTopics.outputTopic;
 import static org.creekservice.api.kafka.metadata.topic.KafkaTopicDescriptor.DEFAULT_CLUSTER_NAME;
-import static org.creekservice.api.kafka.streams.test.TestTopics.inputTopic;
-import static org.creekservice.api.kafka.streams.test.TestTopics.outputTopic;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
