@@ -1,9 +1,9 @@
-FROM amazoncorretto:19@sha256:ec346fa782608946b65816d1429e17488f4c9296cbb42c5119eaa0e60df6aaf0
+FROM amazoncorretto:26@sha256:2f180ed0eeb1258ce4c96edda216b7d47a36d1a4d7bc19d06fa1db0646c3d7f0
 ARG APP_NAME
 ARG APP_VERSION
 ENV VERSION=$APP_VERSION
 
-LABEL org.opencontainers.image.source=https://github.com/creek-service/connected-services-demo/tree/main/handle-occurrence-service
+LABEL org.opencontainers.image.source=https://github.com/creek-service/wip-state-stores-demo/tree/main/handle-occurrence-service
 
 
 RUN mkdir -p /opt/creek

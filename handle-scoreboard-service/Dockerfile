@@ -1,9 +1,9 @@
-FROM amazoncorretto:19@sha256:0f5f3ccad683d3ad81dfffc875c5ef6e421a879ac1ba5093ac943ddd9c7c6c9c
+FROM amazoncorretto:26@sha256:2f180ed0eeb1258ce4c96edda216b7d47a36d1a4d7bc19d06fa1db0646c3d7f0
 ARG APP_NAME
 ARG APP_VERSION
 ENV VERSION=$APP_VERSION
 
-LABEL org.opencontainers.image.source=https://github.com/creek-service/connected-services-demo/tree/main/handle-scoreboard-service
+LABEL org.opencontainers.image.source=https://github.com/creek-service/wip-state-stores-demo/tree/main/handle-scoreboard-service
 
 
 RUN mkdir -p /opt/creek

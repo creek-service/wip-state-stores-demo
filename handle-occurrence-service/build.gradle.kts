@@ -6,14 +6,14 @@ plugins {
     id("com.bmuschko.docker-remote-api")
 }
 
-val creekVersion : String by extra
-val kafkaVersion : String by extra
-val log4jVersion : String by extra
+val creekVersion = property("creekVersion") as String
+val log4jVersion = property("log4jVersion") as String
 
 dependencies {
     implementation(project(":services"))
     implementation("org.creekservice:creek-service-context:$creekVersion")
     implementation("org.creekservice:creek-kafka-streams-extension:$creekVersion")
+    implementation("org.creekservice:creek-kafka-json-serde:$creekVersion")
     implementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
     runtimeOnly("org.apache.logging.log4j:log4j-slf4j2-impl:$log4jVersion")
 
@@ -21,11 +21,11 @@ dependencies {
 }
 
 // Patch Kafka Streams test jar into main Kafka Streams module to avoid split packages:
-modularity.patchModule("kafka.streams", "kafka-streams-test-utils-$kafkaVersion.jar")
+modularity.patchModule("kafka.streams", "kafka-streams-test-utils-${property("kafkaVersion")}.jar")
 
 application {
-    mainModule.set("connected.services.demo.service")
-    mainClass.set("io.github.creek.service.connected.services.demo.service.ServiceMain")
+    mainModule.set("wip.state.stores.demo.handle.occurrence.service")
+    mainClass.set("io.github.creek.service.wip.state.stores.demo.handle.occurrence.service.ServiceMain")
 }
 
 val buildAppImage = tasks.register<DockerBuildImage>("buildAppImage") {

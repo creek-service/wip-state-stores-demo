@@ -1,12 +1,16 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Coverage Status](https://coveralls.io/repos/github/creek-service/connected-services-demo/badge.svg?branch=main)](https://coveralls.io/github/creek-service/connected-services-demo?branch=main)
-[![build](https://github.com/creek-service/connected-services-demo/actions/workflows/build.yml/badge.svg)](https://github.com/creek-service/connected-services-demo/actions/workflows/build.yml)
-[![CodeQL](https://github.com/creek-service/connected-services-demo/actions/workflows/codeql.yml/badge.svg)](https://github.com/creek-service/connected-services-demo/actions/workflows/codeql.yml)
+[![codecov](https://codecov.io/gh/creek-service/wip-state-stores-demo/branch/main/graph/badge.svg)](https://codecov.io/gh/creek-service/wip-state-stores-demo)
+[![build](https://github.com/creek-service/wip-state-stores-demo/actions/workflows/build.yml/badge.svg)](https://github.com/creek-service/wip-state-stores-demo/actions/workflows/build.yml)
+[![CodeQL](https://github.com/creek-service/wip-state-stores-demo/actions/workflows/codeql.yml/badge.svg)](https://github.com/creek-service/wip-state-stores-demo/actions/workflows/codeql.yml)
 
-# Connected Services Demo
+# Kafka Streams State Stores Demo
 
-Repo containing the completed [Connected Services demo](https://www.creekservice.org/connected-services-demo)
+Repo containing the completed [Kafka Streams State Stores Demo](https://www.creekservice.org/ks-state-stores-demo)
 and associated [docs](docs/README.md).
+
+## WORK IN PROGRESS
+
+This demo is not complete yet!
 
 ### Gradle commands
 
@@ -15,7 +19,7 @@ and associated [docs](docs/README.md).
 * `./gradlew format` will format the code using [Spotless][spotless].
 * `./gradlew static` will run static code analysis, i.e. [Spotbugs][spotbugs] and [Checkstyle][checkstyle].
 * `./gradlew check` will run all checks and tests.
-* `./gradlew coverage` will generate a cross-module [Jacoco][jacoco] coverage report.
+* `./gradlew jacocoTestReport` will generate [Jacoco][jacoco] coverage reports for each module.
 
 [spotless]: https://github.com/diffplug/spotless
 [spotbugs]: https://spotbugs.github.io/

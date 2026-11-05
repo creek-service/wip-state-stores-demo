@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2025 Creek Contributors (https://github.com/creek-service)
+ * Copyright 2022-2026 Creek Contributors (https://github.com/creek-service)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +20,15 @@ plugins {
     id("org.creekservice.system.test")
 }
 
-val creekVersion : String by extra
-
 dependencies {
     // Make the `services` module, which contains the handle-occurrence-service's descriptor, available to the system tests:
     systemTestComponent(project(":services"))
 
     // Install the creek-kafka system-test extension:
-    systemTestExtension("org.creekservice:creek-kafka-test-extension:$creekVersion")
+    systemTestExtension("org.creekservice:creek-kafka-test-extension:${property("creekVersion")}")
+
+    // Install the creek-kafka-json-serde extension:
+    systemTestExtension("org.creekservice:creek-kafka-json-serde:${property("creekVersion")}")
 }
 
 tasks.systemTest {

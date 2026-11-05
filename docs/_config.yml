@@ -8,8 +8,8 @@
 
 # Site Settings
 theme     : "creek-jekyll-theme"
-baseurl   : "/connected-services-demo"
-repository: "creek-service/connected-services-demo"
+baseurl   : "/wip-state-stores-demo"
+repository: "creek-service/wip-state-stores-demo"
 
 # Reading Files
 include:

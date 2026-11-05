@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2025 Creek Contributors (https://github.com/creek-service)
+ * Copyright 2022-2026 Creek Contributors (https://github.com/creek-service)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,17 @@
  *
  * <p>Apply to all java modules, usually excluding the root project in multi-module sets.
  *
- * <p>Version: 1.7
+ * <p>Versions:
+ *  - 1.13: indentWithSpaces -> leadingTabsToSpaces and a few others
+ *  - 1.12: XML reporting for spotbugs
+ *  - 1.11: Add explicit checkstyle tool version
+ *  - 1.10: Add ability to exclude containerised tests
+ *  - 1.9: Add `allDeps` task.
+ *  - 1.8: Tweak test config to reduce build speed.
  *  - 1.7: Switch to setting Java version via toolchain
  *  - 1.6: Remove GitHub packages for snapshots
  *  - 1.5: Add filters to exclude generated sources
  *  - 1.4: Add findsecbugs-plugin
- *  - 1.3: Fail on warnings for test code too.
  */
 
 plugins {
@@ -38,21 +43,26 @@ group = "io.github.creek.service"
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
 repositories {
     mavenCentral()
+
+    // Required for Confluent Schema Registry and JSON Schema Provider dependencies
+    // used by Creek's JSON serialization support (kafka-json-serde module).
+    maven {
+        url = uri("https://packages.confluent.io/maven/")
+    }
 }
 
 dependencies {
-    spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.12.0")
-    checkstyle("com.puppycrawl.tools:checkstyle:10.17.0")
+    spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0")
 }
 
 configurations.all {
-    // Reduce chance of build servers running into compilation issues due to stale snapshots:
+    // Reduce the chance of build servers running into compilation issues due to stale snapshots:
     resolutionStrategy.cacheChangingModulesFor(15, TimeUnit.MINUTES)
 }
 
@@ -62,12 +72,9 @@ tasks.withType<JavaCompile> {
 }
 
 tasks.test {
-    useJUnitPlatform() {
-        if (project.hasProperty("excludeContainerised")) {
-            excludeTags("ContainerisedTest")
-        }
-    }
-    setForkEvery(5)
+    useJUnitPlatform()
+
+    forkEvery = 5
     maxParallelForks = Runtime.getRuntime().availableProcessors()
     testLogging {
         showStandardStreams = true
@@ -80,8 +87,8 @@ tasks.test {
 
 spotless {
     java {
-        googleJavaFormat("1.15.0").aosp()
-        indentWithSpaces()
+        googleJavaFormat("1.25.2").aosp().reflowLongStrings()
+        leadingTabsToSpaces()
         importOrder()
         removeUnusedImports()
         trimTrailingWhitespace()
@@ -95,15 +102,27 @@ spotbugs {
     excludeFilter.set(rootProject.file("config/spotbugs/suppressions.xml"))
 
     tasks.spotbugsMain {
-        reports.create("html") {
-            required.set(true)
-            setStylesheet("fancy-hist.xsl")
+        reports {
+            create("html") {
+                required.set(true)
+                setStylesheet("fancy-hist.xsl")
+            }
+
+            create("xml") {
+                required.set(true)
+            }
         }
     }
     tasks.spotbugsTest {
-        reports.create("html") {
-            required.set(true)
-            setStylesheet("fancy-hist.xsl")
+        reports {
+            create("html") {
+                required.set(true)
+                setStylesheet("fancy-hist.xsl")
+            }
+
+            create("xml") {
+                required.set(true)
+            }
         }
     }
 }
@@ -114,17 +133,26 @@ if (rootProject.name != project.name) {
     }
 }
 
-tasks.register("format") {
+val format = tasks.register("format") {
     group = "creek"
     description = "Format the code"
 
     dependsOn("spotlessCheck", "spotlessApply")
 }
 
-tasks.register("static") {
+val static = tasks.register("static") {
     group = "creek"
     description = "Run static code analysis"
 
     dependsOn("checkstyleMain", "checkstyleTest", "spotbugsMain", "spotbugsTest")
+
+    shouldRunAfter(format)
 }
+
+tasks.test {
+    shouldRunAfter(static)
+}
+
+// See: https://solidsoft.wordpress.com/2014/11/13/gradle-tricks-display-dependencies-for-all-subprojects-in-multi-project-build/
+tasks.register<DependencyReportTask>("allDeps") {}
 
