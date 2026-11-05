@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2023 Creek Contributors (https://github.com/creek-service)
+ * Copyright 2022-2025 Creek Contributors (https://github.com/creek-service)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,9 @@
  *
  * <p>Apply to all java modules, usually excluding the root project in multi-module sets.
  *
- * <p>Version: 1.5
+ * <p>Version: 1.7
+ *  - 1.7: Switch to setting Java version via toolchain
+ *  - 1.6: Remove GitHub packages for snapshots
  *  - 1.5: Add filters to exclude generated sources
  *  - 1.4: Add findsecbugs-plugin
  *  - 1.3: Fail on warnings for test code too.
@@ -35,8 +37,9 @@ plugins {
 group = "io.github.creek.service"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
 }
 
 repositories {
@@ -45,6 +48,7 @@ repositories {
 
 dependencies {
     spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.12.0")
+    checkstyle("com.puppycrawl.tools:checkstyle:10.17.0")
 }
 
 configurations.all {
@@ -58,9 +62,13 @@ tasks.withType<JavaCompile> {
 }
 
 tasks.test {
-    useJUnitPlatform()
-    setForkEvery(1)
-    maxParallelForks = 4
+    useJUnitPlatform() {
+        if (project.hasProperty("excludeContainerised")) {
+            excludeTags("ContainerisedTest")
+        }
+    }
+    setForkEvery(5)
+    maxParallelForks = Runtime.getRuntime().availableProcessors()
     testLogging {
         showStandardStreams = true
         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL

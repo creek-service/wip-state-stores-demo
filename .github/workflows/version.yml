@@ -28,9 +28,13 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@3f07048e3d294f56e9b90ac5ea2c6f74e9ad0f98 # v3.10.0
         with:
-          java-version: '16'
+          java-version: '17'
           distribution: 'adopt'
-          cache: gradle
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@d156388eb19639ec20ade50009f3d199ce1e2808 # v4.1.0
+        with:
+          gradle-home-cache-cleanup: true
       - name: Increment version
         if: contains(fromJson('["Major", "Minor", "Patch"]'), github.event.inputs.part)
         run: |

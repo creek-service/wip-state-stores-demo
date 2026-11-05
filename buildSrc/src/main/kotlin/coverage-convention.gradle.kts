@@ -1,7 +1,7 @@
 import org.creekservice.api.system.test.gradle.plugin.coverage.SystemTestCoverageExtension
 
 /*
- * Copyright 2022-2023 Creek Contributors (https://github.com/creek-service)
+ * Copyright 2022-2025 Creek Contributors (https://github.com/creek-service)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,7 +73,7 @@ val coverage = tasks.register<JacocoReport>("coverage") {
 
 coveralls {
     sourceDirs = allprojects.flatMap{it.sourceSets.main.get().allSource.srcDirs}.map{it.toString()}
-    jacocoReportPath = "$buildDir/reports/jacoco/coverage/coverage.xml"
+    jacocoReportPath = layout.buildDirectory.file("reports/jacoco/coverage/coverage.xml")
 }
 
 tasks.coveralls {

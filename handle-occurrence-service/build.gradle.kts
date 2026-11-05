@@ -33,6 +33,11 @@ val buildAppImage = tasks.register<DockerBuildImage>("buildAppImage") {
     buildArgs.put("APP_NAME", project.name)
     buildArgs.put("APP_VERSION", "${project.version}")
     images.add("ghcr.io/creek-service/${rootProject.name}-${project.name}:latest")
+
+    onlyIf {
+        // Exclude the task if running on Windows (as images don't build on Windows)
+        !System.getProperty("os.name").lowercase().contains("win")
+    }
     images.add("ghcr.io/creek-service/${rootProject.name}-${project.name}:${project.version}")
 }
 
@@ -41,7 +46,7 @@ tasks.register<Copy>("prepareDocker") {
 
     from(
         layout.projectDirectory.file("Dockerfile"),
-        layout.buildDirectory.file("distributions/${project.name}-${project.version}.tar"),
+        tarTree(layout.buildDirectory.file("distributions/${project.name}-${project.version}.tar")),
         layout.projectDirectory.dir("include"),
     )
 
@@ -51,5 +56,10 @@ tasks.register<Copy>("prepareDocker") {
 tasks.register<DockerPushImage>("pushAppImage") {
     dependsOn("buildAppImage")
     images.add("ghcr.io/creek-service/${rootProject.name}-${project.name}:latest")
+
+    onlyIf {
+        // Exclude the task if running on Windows (as images don't build on Windows)
+        !System.getProperty("os.name").lowercase().contains("win")
+    }
     images.add("ghcr.io/creek-service/${rootProject.name}-${project.name}:${project.version}")
 }
